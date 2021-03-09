@@ -2,7 +2,7 @@
 #PBS -l nodes=1:ppn=4,vmem=120gb,walltime=24:00:00
 #PBS -N pRF
 #PBS -V
-
+SUBNAME=$1
 set -e
 set -x
 
@@ -13,8 +13,7 @@ echo $FREESURFER_LICENSE > license.txt
  subjects_dir=/home/mohamed/Desktop/fs_output
 
 # time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://davhunt/neuropythy:1.5 python -m neuropythy benson14_retinotopy -d $subjects_dir con01
-time singularity exec -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/neuropythy:1.5 ./run.sh $subjects_dir/con01
-mv fs_copy con01
+time singularity exec -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/neuropythy:1.5 ./run.sh $subjects_dir/$SUBNAME
 # time singularity exec -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/neuropythy:1.5 ./run.sh $subjects_dir/con02
 # time singularity exec -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/neuropythy:1.5 ./run.sh $subjects_dir/con03
 # time singularity exec -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/neuropythy:1.5 ./run.sh $subjects_dir/con04
